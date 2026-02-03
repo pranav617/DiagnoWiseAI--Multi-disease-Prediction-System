@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagno-WISE-AI - Multi Disease Prediction</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { text-align: center; }
+        select, input[type="number"], input[type="submit"] {
+            width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc;
+        }
+        .form-group { margin-bottom: 15px; }
+        .disease-form { display: none; }
+    </style>
+    <script>
+        function showForm() {
+            const disease = document.getElementById("disease").value;
+            const forms = document.getElementsByClassName("disease-form");
+            for (let form of forms) form.style.display = "none";
+            document.getElementById(disease + "-form").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1>Diagno-WISE-AI</h1>
+    <h2>Multi Disease Prediction System</h2>
+    <form method="POST" action="/predict">
+        <div class="form-group">
+            <label>Select Disease to Diagnose:</label>
+            <select name="disease" id="disease" onchange="showForm()" required>
+                <option value="">-- Choose Disease --</option>
+                <option value="heart">Heart Disease</option>
+                <option value="diabetes">Diabetes</option>
+                <option value="kidney">Kidney Disease</option>
+                <option value="liver">Liver Disease</option>
+                <option value="cancer">Breast Cancer</option>
+            </select>
+        </div>
+
+        <!-- Heart Disease Form -->
+        <div id="heart-form" class="disease-form">
+            <h3>Heart Disease Parameters</h3>
+            <input type="number" name="age" placeholder="Age (years)" required>
+            <select name="sex" required>
+                <option value="">Sex</option>
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+            </select>
+            <select name="cp" required>
+                <option value="">Chest Pain Type</option>
+                <option value="0">Typical Angina</option>
+                <option value="1">Atypical Angina</option>
+                <option value="2">Non-anginal Pain</option>
+                <option value="3">Asymptomatic</option>
+            </select>
+            <input type="number" step="any" name="trestbps" placeholder="Resting Blood Pressure (mm Hg)" required>
+            <input type="number" step="any" name="chol" placeholder="Cholesterol (mg/dl)" required>
+            <select name="fbs" required>
+                <option value="">Fasting Blood Sugar > 120 mg/dl</option>
+                <option value="1">True</option>
+                <option value="0">False</option>
+            </select>
+            <select name="restecg" required>
+                <option value="">Resting ECG Results</option>
+                <option value="0">Normal</option>
+                <option value="1">Having ST-T wave abnormality</option>
+                <option value="2">Showing probable/definite left ventricular hypertrophy</option>
+            </select>
+            <input type="number" step="any" name="thalach" placeholder="Max Heart Rate Achieved" required>
+            <select name="exang" required>
+                <option value="">Exercise Induced Angina</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            <input type="number" step="any" name="oldpeak" placeholder="Oldpeak" required>
+            <select name="slope" required>
+                <option value="">Slope of Peak Exercise ST Segment</option>
+                <option value="0">Upsloping</option>
+                <option value="1">Flat</option>
+                <option value="2">Downsloping</option>
+            </select>
+            <input type="number" name="ca" placeholder="Number of Major Vessels Colored by Fluoroscopy (0-4)" required>
+            <select name="thal" required>
+                <option value="">Thalassemia</option>
+                <option value="1">Normal</option>
+                <option value="2">Fixed Defect</option>
+                <option value="3">Reversible Defect</option>
+            </select>
+        </div>
+
+        <!-- Diabetes Form -->
+        <div id="diabetes-form" class="disease-form">
+            <h3>Diabetes Parameters</h3>
+            <input type="number" step="any" name="Pregnancies" placeholder="Pregnancies">
+            <input type="number" step="any" name="Glucose" placeholder="Glucose Level">
+            <input type="number" step="any" name="BloodPressure" placeholder="Blood Pressure (mm Hg)">
+            <input type="number" step="any" name="SkinThickness" placeholder="Skin Thickness (mm)">
+            <input type="number" step="any" name="Insulin" placeholder="Insulin Level (mu U/ml)">
+            <input type="number" step="any" name="BMI" placeholder="BMI">
+            <input type="number" step="any" name="DiabetesPedigreeFunction" placeholder="Diabetes Pedigree Function">
+            <input type="number" name="Age" placeholder="Age (years)">
+        </div>
+
+        <!-- Kidney Form -->
+        <div id="kidney-form" class="disease-form">
+            <h3>Kidney Disease Parameters</h3>
+            <input type="number" step="any" name="bp" placeholder="Blood Pressure (mm Hg)">
+            <input type="number" step="any" name="sg" placeholder="Specific Gravity (1.005 - 1.025)">
+            <input type="number" step="any" name="al" placeholder="Albumin (0-5)">
+            <input type="number" step="any" name="su" placeholder="Sugar (0-5)">
+            <input type="number" step="any" name="bgr" placeholder="Blood Glucose Random (mg/dl)">
+            <input type="number" step="any" name="bu" placeholder="Blood Urea (mg/dl)">
+            <input type="number" step="any" name="sc" placeholder="Serum Creatinine (mg/dl)">
+            <input type="number" step="any" name="sod" placeholder="Sodium (mEq/L)">
+            <input type="number" step="any" name="pot" placeholder="Potassium (mEq/L)">
+            <input type="number" step="any" name="hemo" placeholder="Hemoglobin (g/dl)">
+        </div>
+
+        <!-- Liver Form -->
+        <div id="liver-form" class="disease-form">
+            <h3>Liver Disease Parameters</h3>
+            <input type="number" name="Age" placeholder="Age">
+            <select name="Gender">
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+            </select>
+            <input type="number" step="any" name="Total_Bilirubin" placeholder="Total Bilirubin">
+            <input type="number" step="any" name="Direct_Bilirubin" placeholder="Direct Bilirubin">
+            <input type="number" step="any" name="Alkaline_Phosphotase" placeholder="Alkaline Phosphotase">
+            <input type="number" step="any" name="Alamine_Aminotransferase" placeholder="Alamine Aminotransferase">
+            <input type="number" step="any" name="Aspartate_Aminotransferase" placeholder="Aspartate Aminotransferase">
+            <input type="number" step="any" name="Total_Proteins" placeholder="Total Proteins">
+            <input type="number" step="any" name="Albumin" placeholder="Albumin">
+            <input type="number" step="any" name="Albumin_and_Globulin_Ratio" placeholder="Albumin and Globulin Ratio">
+        </div>
+
+        <!-- Cancer Form -->
+        <div id="cancer-form" class="disease-form">
+            <h3>Breast Cancer Parameters</h3>
+            <input type="number" step="any" name="mean_radius" placeholder="Mean Radius">
+            <input type="number" step="any" name="mean_texture" placeholder="Mean Texture">
+            <input type="number" step="any" name="mean_perimeter" placeholder="Mean Perimeter">
+            <input type="number" step="any" name="mean_area" placeholder="Mean Area">
+            <input type="number" step="any" name="mean_smoothness" placeholder="Mean Smoothness">
+        </div>
+
+        <input type="submit" value="Predict">
+    </form>
+</div>
+</body>
+</html>
+
